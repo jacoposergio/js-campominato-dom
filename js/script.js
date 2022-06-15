@@ -15,28 +15,39 @@
 const playBtn = document.querySelector('#play');
 playBtn.addEventListener('click', startGame);
 
+// ! HTML Elements
+const mainGrid = document.querySelector('#main-grid');
+
 
 function startGame() {
+
+// ! Quando l'utente avvia una nuova partita svuoto la griglia
+// !e svuoto le classi
+mainGrid.innerHTML = '';
+mainGrid.className = '';
 
 // ! numero di bombe
 const numberOfBombs = 5;
 
 
     // ! prendo la difficoltà dal valore inserito dall'utente 
-const difficulty = document.getElementById("user-level").value;
-console.log("difficoltà",difficulty);
+const userLevel = document.getElementById("user-level").value;
+console.log("difficoltà",userLevel);
 
    // ! con lo switch imposto i range di difficoltà per i da 1 a 3
 let gameMaxRange;
-switch (difficulty) {
+switch (userLevel) {
     case '1':
         gameMaxRange = 100;
+        mainGridClass = 'easy';
         break;
     case '2':
         gameMaxRange = 81;
+        mainGridClass = 'hard';
         break;
     default:
         gameMaxRange = 49;
+        mainGridClass = 'crazy';
         break;
     }
 
@@ -52,27 +63,38 @@ switch (difficulty) {
 // !  array numeri azzeccati 
 const successfulNumbers = [];  
   
-}
 
-function generateGrid() {
-    // ! dare classe con dimensione grigia
-    // ! creare cella
-    // ! aggiungere testo
-    // ! aggiungere una classe
-}
-// // ! creare la cella con i numeri 
-// const mainGrid = document.querySelector('#main-grid')
+generateGrid();
+    
+    function generateGrid() {
+        // ! dare classe con dimensione grigia
+        // ! creare cella
+        // ! aggiungere testo
+        // ! aggiungere una classe
+
+    mainGrid.classList.add(mainGridClass);
+
+    // ! genero i numeri da 1 a game max range
+    for(let i = 1; i <= gameMaxRange; i++) {
+        const newCell = document.createElement('div');
+        newCell.innerHTML = `<span>${i}</span>`;
+        newCell.classList.add('square');
+        newCell.addEventListener('click', handleCellClick );
 
 
-// for (let i = 1 ; i <= gameMaxRange; i++){
-// // !    creo i quadrati
-// const newSquare = document.createElement('div');
-// // ! popolo il numero
-// newSquare.innerHTML = `<span>${i}</span>` ;
-// // ! aggiungere a square la classe
-// newSquare.classList.add('square');
+        // ! aggiungere il testo
+        // ! aggiungere una classe etc...
+        mainGrid.append(newCell);
+        }
+    }
 
-// }
+            function handleCellClick() {
+                alert('ciao')
+            }
+}  // ! fine della funzione start game
+
+
+
 
 
 
@@ -100,3 +122,4 @@ while(randomNumbersArray.length < numberOfElements) {
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
+
