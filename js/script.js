@@ -14,6 +14,28 @@
 const playBtn = document.querySelector('#play');
 playBtn.addEventListener('click', startGame);
 
+
 function startGame() {
-    alert('inizia gioco');
+    // ! prendo la difficoltà dal valore inserito dall'utente 
+difficulty = document.getElementById("user-level").value;
+console.log("difficoltà",difficulty);
+
+   // ! con lo switch imposto i range di difficoltà per i da 1 a 3
+const numberOfBombs= 16;
+let gameMaxRange;
+switch(difficulty) {
+    case '1':
+        gameMaxRange = 100;
+        break;
+    case '2':
+        gameMaxRange = 81;
+        break;
+    case '3':
+        gameMaxRange = 49;
+        break;
+    default:
+        alert('Dato che non sai scrivere scelgo per te il livello 3 😈') ;
+        gameMaxRange = 49;
+}
+console.log(gameMaxRange);
 }
