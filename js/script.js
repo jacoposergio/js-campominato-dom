@@ -11,9 +11,6 @@
 // TODO|1- quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
 // TODO|2- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 
-// ! Game Settings 
-
-
 
 const playBtn = document.querySelector('#play');
 playBtn.addEventListener('click', startGame);
@@ -45,10 +42,12 @@ switch (difficulty) {
 
     console.log("gamemaxrange",gameMaxRange);
 
+// ! genero le bombe
+
   const bombs = generateBombs(numberOfBombs, 1, gameMaxRange);
-  
+// !   numero massimo di tentativi
   const maxAttemps = gameMaxRange - numberOfBombs;
-  console.log("",maxAttemps);
+  console.log("generatebomb",bombs);
 
 // !  array numeri azzeccati 
 // const successfulNumbers = [];  
@@ -80,18 +79,19 @@ switch (difficulty) {
  // ! funzione per generare le bombe
 function generateBombs(numberOfElements, rangeMin, rangeMax) {
     // ! creo l 'array vuoto da riempire
-const bombsArray = [];
+const randomNumbersArray = [];
 // ! uso il ciclo while per mettere la condizione che deve scorrere finchè non trova solo numeri diversi,
 // ! gameMaxRange darà il range del livello scelto
-while (bombsArray.length < numberOfElements) {
+while(randomNumbersArray.length < numberOfElements) {
     const randomNumber = getRndInteger (rangeMin, rangeMax);
-    if(!bombsArray.includes(randomNumber)){
-        bombsArray.push(randomNumber);
+    if(!randomNumbersArray.includes(randomNumber)) {
+        randomNumbersArray.push(randomNumber);
     }
-    return bombsArray;
+   
+   }
+   return randomNumbersArray;
 }
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
-}
