@@ -50,11 +50,16 @@ switch (difficulty) {
   console.log("generatebomb",bombs);
 
 // !  array numeri azzeccati 
-// const successfulNumbers = [];  
+const successfulNumbers = [];  
   
 }
 
-
+function generateGrid() {
+    // ! dare classe con dimensione grigia
+    // ! creare cella
+    // ! aggiungere testo
+    // ! aggiungere una classe
+}
 // // ! creare la cella con i numeri 
 // const mainGrid = document.querySelector('#main-grid')
 
