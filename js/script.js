@@ -11,31 +11,87 @@
 // TODO|1- quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
 // TODO|2- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 
+// ! Game Settings 
+
+
+
 const playBtn = document.querySelector('#play');
 playBtn.addEventListener('click', startGame);
 
 
 function startGame() {
+
+// ! numero di bombe
+const numberOfBombs = 5;
+
+
     // ! prendo la difficoltà dal valore inserito dall'utente 
-difficulty = document.getElementById("user-level").value;
+const difficulty = document.getElementById("user-level").value;
 console.log("difficoltà",difficulty);
 
    // ! con lo switch imposto i range di difficoltà per i da 1 a 3
-const numberOfBombs= 16;
 let gameMaxRange;
-switch(difficulty) {
+switch (difficulty) {
     case '1':
         gameMaxRange = 100;
         break;
     case '2':
         gameMaxRange = 81;
         break;
-    case '3':
+    default:
         gameMaxRange = 49;
         break;
-    default:
-        alert('Dato che non sai scrivere scelgo per te il livello 3 😈') ;
-        gameMaxRange = 49;
+    }
+
+    console.log("gamemaxrange",gameMaxRange);
+
+  const bombs = generateBombs(numberOfBombs, 1, gameMaxRange);
+  
+  const maxAttemps = gameMaxRange - numberOfBombs;
+  console.log("",maxAttemps);
+
+// !  array numeri azzeccati 
+// const successfulNumbers = [];  
+  
 }
-console.log(gameMaxRange);
+
+
+// // ! creare la cella con i numeri 
+// const mainGrid = document.querySelector('#main-grid')
+
+
+// for (let i = 1 ; i <= gameMaxRange; i++){
+// // !    creo i quadrati
+// const newSquare = document.createElement('div');
+// // ! popolo il numero
+// newSquare.innerHTML = `<span>${i}</span>` ;
+// // ! aggiungere a square la classe
+// newSquare.classList.add('square');
+
+// }
+
+
+
+
+// !||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   // !                    UTILITY    FUNCTIONS
+ // !||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+ // ! funzione per generare le bombe
+function generateBombs(numberOfElements, rangeMin, rangeMax) {
+    // ! creo l 'array vuoto da riempire
+const bombsArray = [];
+// ! uso il ciclo while per mettere la condizione che deve scorrere finchè non trova solo numeri diversi,
+// ! gameMaxRange darà il range del livello scelto
+while (bombsArray.length < numberOfElements) {
+    const randomNumber = getRndInteger (rangeMin, rangeMax);
+    if(!bombsArray.includes(randomNumber)){
+        bombsArray.push(randomNumber);
+    }
+    return bombsArray;
+}
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
 }
