@@ -11,3 +11,9 @@
 // TODO|1- quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
 // TODO|2- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 
+const playBtn = document.querySelector('#play');
+playBtn.addEventListener('click', startGame);
+
+function startGame() {
+    alert('inizia gioco');
+}
