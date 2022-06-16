@@ -17,6 +17,7 @@ playBtn.addEventListener('click', startGame);
 
 // ! HTML Elements
 const mainGrid = document.querySelector('#main-grid');
+const userMessageDiv = document.querySelector('#userMessage');
 
 
 function startGame() {
@@ -25,6 +26,7 @@ function startGame() {
 // !e svuoto le classi
 mainGrid.innerHTML = '';
 mainGrid.className = '';
+// userMessageDiv.innerHTML = '';
 
 // ! numero di bombe
 const numberOfBombs = 5;
@@ -63,6 +65,7 @@ switch (userLevel) {
 // !  array numeri azzeccati 
 const successfulNumbers = [];  
   
+// ! FUNZIONE PER GENERARE LA TABELLA
 
 generateGrid();
     
@@ -74,13 +77,12 @@ generateGrid();
 
     mainGrid.classList.add(mainGridClass);
 
-    // ! genero i numeri da 1 a game max range
+    // ! genero GLI SQUARE da 1 a game max range
     for(let i = 1; i <= gameMaxRange; i++) {
         const newCell = document.createElement('div');
         newCell.innerHTML = `<span>${i}</span>`;
         newCell.classList.add('square');
         newCell.addEventListener('click', handleCellClick );
-
 
         // ! aggiungere il testo
         // ! aggiungere una classe etc...
@@ -88,9 +90,59 @@ generateGrid();
         }
     }
 
+    // ! gestisce il click su ogni cella
             function handleCellClick() {
-                alert('ciao')
-            }
+                // !Rendiamo la cella non più cliccabile
+                this.style.pointerEvents = 'none';
+                // console.log('sono clickato');
+                
+// !              leggere il numero nello span e fare un parseInt
+      let cellNumber = parseInt(this.querySelector('span').innerHTML);
+      console.log("",cellNumber);
+// !      se il numero è incluso in bombs la cella diventa rossa
+
+      if(bombs.includes(cellNumber)) {
+        this.classList.add('bomb');
+        // endGame('lost', successfulNumbers);
+      }else{
+        this.classList.add('not-bomb');
+      }
+
+
+
+   function endGame (gameResult) {
+    if (gameResult === 'won') {
+        userMessageDiv.innerHTML = 'Hai vinto';
+    }else {
+        userMessageDiv.innerHTML = `Hai perso. hai azzeccato ${ successfulNumbers.length} numeri`;
+    }
+
+    // !rendo tutte le celle non cliccabili e scopro tuttle le bombe
+     const allSquares = document.querySelectorAll('.square');
+     console.log("",allSquares);
+     for(let i = 0; i < allSquares.length; i ++) {
+        const thisSquare = allSquares[i];
+
+        // ! rendo non cliccabile
+        thisSquare.style.pointerEvents = 'none';
+
+        // ! se il numero è tra le bombe, aggiungo la classe .bomb
+         const thisSquareNumber = parseInt(thisSquare.querySelector('span').innerHTML);
+         if(bombs.includes(thisSquareNumber)) {
+            thisSquare.classLis.add('bomb');
+         }
+     }
+
+
+   }
+
+  }
+
+
+
+
+
+
 }  // ! fine della funzione start game
 
 

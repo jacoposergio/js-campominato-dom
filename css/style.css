@@ -30,6 +30,14 @@
     align-items: center;
 }
 
+.square.bomb {
+  background-color: red;
+}
+
+.square.not-bomb{
+  background-color: lightblue;
+}
+
 
 #main-grid.easy .square {
     width: calc(100% / 10);
